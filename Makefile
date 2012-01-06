@@ -1,8 +1,9 @@
 
 all: test
 
-#test: clean get build dotest
-test:
+test: clean get build mysqltest dotest
+
+mysqltest:
 	mysql -e "show databases;"
 	mysql -e "drop database if exists test"
 	mysql -e "create database test"
@@ -17,19 +18,23 @@ test:
 get:
 	git clone https://github.com/kengonakajima/lua-msgpack.git
 	git clone https://github.com/kengonakajima/lua-msgpack-native.git
+	git clone https://github.com/kengonakajima/luajit-mysql
 	git clone http://repo.or.cz/r/lua.git
 
 build:
 	cd lua/src; make linux
 	ln -s lua/src/lua ./luaexec
 
-dotest: lua-msgpack-test lua-msgpack-native-test
+dotest: lua-msgpack-test lua-msgpack-native-test luajit-mysql-test
 
 lua-msgpack-test:
 	cd lua-msgpack; ../luaexec test.lua
 
 lua-msgpack-native-test:
 	cd lua-msgpack-native; make
+
+luajit-mysql-test:
+	echo hoge
 
 clean:
 	rm -rf lua luaexec lua-msgpack lua-msgpack-native
