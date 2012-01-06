@@ -1,7 +1,9 @@
 
 all: test
 
+#test: clean get build dotest
 test: clean get build dotest
+	mysql -e "show databases; use test; show tables;"
 
 get:
 	git submodule init
