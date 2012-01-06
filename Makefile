@@ -2,7 +2,7 @@
 all: test
 
 #test: clean get build dotest
-test: clean get build dotest
+test:
 	mysql -e "show databases; use test; show tables;"
 
 get:
