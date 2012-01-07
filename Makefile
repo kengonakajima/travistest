@@ -4,16 +4,8 @@ all: test
 test: clean get build mysqltest dotest
 
 mysqltest:
-	mysql -e "show databases;"
-	mysql -e "drop database if exists test"
-	mysql -e "create database test"
-	mysql test -e "create table aho( id int )"
-	mysql test -e "insert into aho set id=100"
-	mysql test -e "insert into aho set id=1000"
-	mysql test -e "insert into aho set id=10000"
-	mysql test -e "delete from aho where id = 1000"
-	mysql test -e "update aho set id = 101 where id = 100"
-	mysql test -e "select * from aho"
+	mysql -u root -P "" -e "show databases; drop database if exists luajit_mysql_test; create database luajit_mysql_test"
+	mysql -u root -P "" luajit_mysql_test -e "create table aho( id int ); insert into aho set id=100; insert into aho set id=1000; insert into aho set id=10000; delete from aho where id = 1000; update aho set id = 101 where id = 100; select * from aho"
 
 get:
 	git clone https://github.com/kengonakajima/lua-msgpack.git
@@ -33,8 +25,8 @@ lua-msgpack-test:
 lua-msgpack-native-test:
 	cd lua-msgpack-native; make
 
-luajit-mysql-test:
-	echo hoge
+luajit-mysql-test: # depends on luvit in lua-msgpack-native 
+	cd luajit-mysql; ../lua-msgpack-native/deps/luvit/build/luvit test.lua
 
 clean:
 	rm -rf lua luaexec lua-msgpack lua-msgpack-native
