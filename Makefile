@@ -9,11 +9,7 @@ endif
 
 all: test
 
-#test: clean get build mysqltest dotest
-
-test:
-	sudo aptitude -y install lua5.1
-
+test: clean get build mysqltest dotest
 
 mysqltest:
 	mysql -u root -P "" -e "show databases; drop database if exists luajit_mysql_test; create database luajit_mysql_test"
