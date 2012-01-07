@@ -1,3 +1,11 @@
+ifeq ($(shell uname -sm | sed -e s,x86_64,i386,),Darwin i386)
+#osx
+LUABUILDNAME=macosx
+else
+# linux
+LUABUILDNAME=linux
+endif
+
 
 all: test
 
@@ -14,7 +22,7 @@ get:
 	git clone http://repo.or.cz/r/lua.git
 
 build:
-	cd lua/src; make linux
+	cd lua/src; make $(LUABUILDNAME)
 	ln -s lua/src/lua ./luaexec
 
 dotest: lua-msgpack-test lua-msgpack-native-test luajit-mysql-test
@@ -29,4 +37,4 @@ luajit-mysql-test: # depends on luvit in lua-msgpack-native
 	cd luajit-mysql; ../lua-msgpack-native/deps/luvit/build/luvit test.lua
 
 clean:
-	rm -rf lua luaexec lua-msgpack lua-msgpack-native
+	rm -rf lua luaexec lua-msgpack lua-msgpack-native luajit-mysql

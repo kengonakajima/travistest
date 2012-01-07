@@ -2,3 +2,4 @@ lua
 luaexec
 lua-msgpack
 lua-msgpack-native
+luajit-mysql
