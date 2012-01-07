@@ -14,6 +14,7 @@ all: test
 test:
 	sudo aptitude install lua5.1
 
+
 mysqltest:
 	mysql -u root -P "" -e "show databases; drop database if exists luajit_mysql_test; create database luajit_mysql_test"
 	mysql -u root -P "" luajit_mysql_test -e "create table aho( id int ); insert into aho set id=100; insert into aho set id=1000; insert into aho set id=10000; delete from aho where id = 1000; update aho set id = 101 where id = 100; select * from aho"
