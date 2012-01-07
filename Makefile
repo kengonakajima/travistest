@@ -12,7 +12,7 @@ all: test
 #test: clean get build mysqltest dotest
 
 test:
-	sudo aptitude install lua5.1
+	sudo aptitude -y install lua5.1
 
 
 mysqltest:
